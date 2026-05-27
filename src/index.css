@@ -85,10 +85,6 @@ header.scrolled {
   width: auto;
   display: block;
 }
-  padding: 2px 8px;
-  border-radius: 20px;
-  background: var(--accent-glow);
-}
 
 nav { display: flex; gap: 8px; }
 
