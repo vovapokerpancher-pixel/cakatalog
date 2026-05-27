@@ -1611,7 +1611,7 @@ footer {
 
   /* Bonuses responsive */
   .bonuses-header { flex-direction: column; align-items: stretch; }
-  .promo-code-card { justify-content: center; padding: 12px 16px; gap: 10px; flex-wrap: wrap; }
+  .promo-code-card { flex-direction: column; align-items: center; text-align: center; padding: 12px 16px; gap: 8px; }
   .promo-value { font-size: 18px; }
   .bonus-grid { grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); }
   .bonuses-grid { display: none; }
