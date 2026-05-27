@@ -49,7 +49,7 @@ export default function App() {
         <header id="header">
           <div className="header-inner">
             <a href="#" className="logo">
-              <img src="/cakatalog/cakatalog-logo.png" alt="CAKATALOG" className="logo-img" />
+              <img src="/cakatalog-logo.png" alt="CAKATALOG" className="logo-img" />
             </a>
             <nav>
               <a href="#casinos" className="active">Казино</a>
