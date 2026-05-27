@@ -10,17 +10,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="preload" href="/cakatalog-logo.png" as="image" />
     <link rel="preload" href="/logo.webp" as="image" type="image/webp" />
-    <script>
-      (function() {
-        var isTelegram = window.TelegramWebviewProxy !== undefined ||
-          location.search.indexOf('tgWebAppVersion=') !== -1;
-        if (isTelegram) {
-          var s = document.createElement('script');
-          s.src = 'https://telegram.org/js/telegram-web-app.js';
-          document.head.appendChild(s);
-        }
-      })();
-    </script>
+    <script src="https://telegram.org/js/telegram-web-app.js" async></script>
   </head>
   <body>
     <div id="root"></div>
@@ -32,8 +22,8 @@
             Telegram.WebApp.expand();
             clearInterval(checkTelegram);
           }
-        }, 10);
-        setTimeout(function() { clearInterval(checkTelegram); }, 5000);
+        }, 5);
+        setTimeout(function() { clearInterval(checkTelegram); }, 10000);
       })();
     </script>
     <script type="module" src="/src/main.tsx"></script>
