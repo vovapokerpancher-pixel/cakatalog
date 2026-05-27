@@ -8,9 +8,32 @@
     <meta name="description" content="25 лучших онлайн казино с бонусами до 1 000 000₽. Проверенные бренды, честные отзывы, быстрые выплаты." />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <script>
+      (function() {
+        var isTelegram = window.TelegramWebviewProxy !== undefined ||
+          location.search.indexOf('tgWebAppVersion=') !== -1;
+        if (isTelegram) {
+          var s = document.createElement('script');
+          s.src = 'https://telegram.org/js/telegram-web-app.js';
+          document.head.appendChild(s);
+        }
+      })();
+    </script>
   </head>
   <body>
     <div id="root"></div>
+    <script>
+      (function() {
+        var checkTelegram = setInterval(function() {
+          if (window.Telegram && window.Telegram.WebApp) {
+            Telegram.WebApp.ready();
+            Telegram.WebApp.expand();
+            clearInterval(checkTelegram);
+          }
+        }, 10);
+        setTimeout(function() { clearInterval(checkTelegram); }, 5000);
+      })();
+    </script>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
