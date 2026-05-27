@@ -35,17 +35,20 @@ const base = import.meta.env.BASE_URL;
 
 export function Logo({ name, size = 64 }: LogoProps) {
   const file = logoFiles[name];
+  const w = Math.round(size * 1.6);
+  const h = size;
+
   if (file) {
     const src = `${base}logos/${file}`;
     return (
       <img
         src={src}
         alt={name}
-        width={size}
-        height={size}
+        width={w}
+        height={h}
         style={{
-          borderRadius: "50%",
-          objectFit: "cover",
+          borderRadius: 8,
+          objectFit: "contain",
           background: "#1a1a2e",
           border: "1px solid rgba(255,255,255,0.1)",
         }}
@@ -54,8 +57,8 @@ export function Logo({ name, size = 64 }: LogoProps) {
   }
 
   return (
-    <div style={{ width: size, height: size, borderRadius: "50%", background: "#1a1a2e", display: "flex", alignItems: "center", justifyContent: "center", border: "1px solid rgba(255,255,255,0.1)" }}>
-      <span style={{ fontSize: size * 0.4, fontWeight: 900, color: "#fff" }}>{name.charAt(0)}</span>
+    <div style={{ width: w, height: h, borderRadius: 8, background: "#1a1a2e", display: "flex", alignItems: "center", justifyContent: "center", border: "1px solid rgba(255,255,255,0.1)" }}>
+      <span style={{ fontSize: size * 0.35, fontWeight: 900, color: "#fff" }}>{name.charAt(0)}</span>
     </div>
   );
 }
