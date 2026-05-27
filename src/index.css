@@ -169,14 +169,13 @@ nav a.active {
 
 /* Hero */
 .hero {
-  padding: 140px 24px 80px;
+  padding: 100px 24px 40px;
   max-width: 1400px;
   margin: 0 auto;
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 60px;
   align-items: center;
-  min-height: 90vh;
 }
 
 .hero-content h1 {
@@ -544,6 +543,7 @@ nav a.active {
   max-width: 1400px;
   margin: 0 auto;
   padding: 0 24px 40px;
+  overflow: hidden;
 }
 
 .filters-header {
@@ -1184,6 +1184,7 @@ nav a.active {
   grid-template-columns: repeat(5, 1fr);
   gap: 12px;
   margin-bottom: 40px;
+  overflow: hidden;
 }
 
 .bg-card {
