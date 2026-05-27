@@ -12,6 +12,9 @@ dist
 dist-ssr
 *.local
 
+# Casino logo source folder (copied to public/logos/)
+логотипы каз
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
