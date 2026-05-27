@@ -1028,9 +1028,9 @@ nav a.active {
 
 .modal-cta .btn {
   flex: 1;
-  padding: 16px;
-  font-size: 16px;
-  font-weight: 800;
+  padding: 14px 24px;
+  font-size: 15px;
+  font-weight: 700;
 }
 
 /* Bonuses Page */
@@ -1606,7 +1606,17 @@ footer {
   .features-bar { grid-template-columns: 1fr; padding: 0 16px 40px; }
   .casino-grid { grid-template-columns: 1fr; padding: 0 16px 60px; }
   .modal-header { flex-direction: column; align-items: center; text-align: center; }
-  .info-grid { grid-template-columns: 1fr; }
+  .modal-title-section h2 { font-size: 24px; }
+  .modal-body { padding: 24px 20px 32px; }
+  .info-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+  .info-card { padding: 12px 8px; border-radius: 12px; }
+  .info-card-icon { font-size: 20px; margin-bottom: 4px; }
+  .info-card-value { font-size: 14px; }
+  .info-card-label { font-size: 10px; }
+  .modal-cta { padding: 16px 20px 24px; gap: 10px; flex-direction: column; }
+  .modal-cta .btn { padding: 12px; font-size: 14px; }
+  .modal-close { width: 32px; height: 32px; font-size: 16px; top: 12px; right: 12px; }
+  .modal { margin: 10px; border-radius: 16px; }
   .footer-inner { grid-template-columns: 1fr; }
   .footer-bottom { flex-direction: column; gap: 16px; text-align: center; }
 
