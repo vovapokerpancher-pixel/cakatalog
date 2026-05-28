@@ -1,0 +1,11 @@
+services:
+  - type: worker
+    name: cakatalog-bot
+    runtime: node
+    repo: https://github.com/vovapokerpancher-pixel/cakatalog
+    branch: main
+    buildCommand: npm ci
+    startCommand: node bot.mjs
+    envVars:
+      - key: BOT_TOKEN
+        sync: false
