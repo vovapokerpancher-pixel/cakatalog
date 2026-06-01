@@ -1,4 +1,6 @@
 import { Telegraf, Markup } from "telegraf";
+import { HttpsProxyAgent } from "https-proxy-agent";
+import { SocksProxyAgent } from "socks-proxy-agent";
 
 const token = process.env.BOT_TOKEN;
 if (!token) {
@@ -6,7 +8,18 @@ if (!token) {
   process.exit(1);
 }
 
-const bot = new Telegraf(token);
+let bot;
+const proxy = process.env.BOT_PROXY;
+
+if (proxy) {
+  const agent = proxy.startsWith("socks")
+    ? new SocksProxyAgent(proxy)
+    : new HttpsProxyAgent(proxy);
+  bot = new Telegraf(token, { telegram: { agent } });
+  console.log("🔌 Using proxy:", proxy);
+} else {
+  bot = new Telegraf(token);
+}
 
 const WEBAPP_URL = "https://cakatalog.online";
 const PHOTO_URL = `${WEBAPP_URL}/cakatalog-logo.png`;

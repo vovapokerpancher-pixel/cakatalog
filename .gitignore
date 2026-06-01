@@ -6,11 +6,16 @@ yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
-
 node_modules
 dist
 dist-ssr
 *.local
+
+# Environment
+.env
+.env.local
+start-bot.bat
+install-bot.ps1
 
 # Casino logo source folder (copied to public/logos/)
 логотипы каз
