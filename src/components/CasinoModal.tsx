@@ -9,8 +9,20 @@ interface Props {
 
 type Tab = "overview" | "bonuses";
 
+const iconMap: Record<string, string> = {
+  welcome: "🎁", deposit: "📥", free: "🆓", cashback: "💰",
+  crypto: "₿", telegram: "✈️", vk: "📱", exclusive: "💎", poker: "♠️",
+};
+
+const paymentIcons: Record<string, string> = {
+  Visa: "💳", "МИР": "🟢", Crypto: "₿", USDT: "💰", TON: "💎",
+  Skrill: "🔵", Neteller: "🟣", Piastrix: "🟠",
+};
+
 export default function CasinoModal({ casino, onClose }: Props) {
   const [tab, setTab] = useState<Tab>("overview");
+
+  const stars = "★".repeat(Math.floor(casino.rating)) + (casino.rating % 1 >= 0.5 ? "★" : "");
 
   return (
     <div className="modal-overlay active" onClick={onClose}>
@@ -18,89 +30,89 @@ export default function CasinoModal({ casino, onClose }: Props) {
         <button className="modal-close" onClick={onClose}>×</button>
 
         <div className="modal-header">
-          <Logo name={casino.name} size={100} />
+          <Logo name={casino.name} size={80} />
           <div className="modal-title-section">
             <h2>{casino.name}</h2>
             <div className="modal-rating">
-              <span className="stars" style={{ fontSize: 20 }}>
-                {"★".repeat(Math.floor(casino.rating))}
-              </span>
+              <span className="stars" style={{ fontSize: 18, color: "var(--gold)" }}>{stars}</span>
               <span className="modal-score">{casino.rating}<span>/5</span></span>
             </div>
-            <p style={{ color: "var(--text-secondary)", fontSize: 14 }}>{casino.description}</p>
+            <p className="modal-desc">{casino.description}</p>
           </div>
         </div>
 
         <div className="modal-tabs">
           <button className={`modal-tab${tab === "overview" ? " active" : ""}`} onClick={() => setTab("overview")}>Обзор</button>
-          <button className={`modal-tab${tab === "bonuses" ? " active" : ""}`} onClick={() => setTab("bonuses")}>Бонусы ({casino.bonuses.length})</button>
+          <button className={`modal-tab${tab === "bonuses" ? " active" : ""}`} onClick={() => setTab("bonuses")}>
+            Бонусы <span className="modal-tab-count">{casino.bonuses.length}</span>
+          </button>
         </div>
 
         <div className="modal-body">
           {tab === "overview" && (
-            <div className="tab-content active" id="tab-overview">
-              <div className="info-grid">
-                <div className="info-card">
-                  <div className="info-card-icon">💰</div>
-                  <div className="info-card-value">{casino.minDeposit}</div>
-                  <div className="info-card-label">Мин. депозит</div>
+            <div className="tab-content">
+              <div className="modal-info-grid">
+                <div className="modal-info-item">
+                  <span className="mii-icon">💰</span>
+                  <span className="mii-label">Мин. депозит</span>
+                  <span className="mii-value">{casino.minDeposit}</span>
                 </div>
-
-                <div className="info-card">
-                  <div className="info-card-icon">📅</div>
-                  <div className="info-card-value">{casino.year}</div>
-                  <div className="info-card-label">Год основания</div>
+                <div className="modal-info-item">
+                  <span className="mii-icon">📅</span>
+                  <span className="mii-label">Основано</span>
+                  <span className="mii-value">{casino.year}</span>
                 </div>
-                <div className="info-card">
-                  <div className="info-card-icon">🎰</div>
-                  <div className="info-card-value">5000+</div>
-                  <div className="info-card-label">Игр</div>
+                <div className="modal-info-item">
+                  <span className="mii-icon">🎰</span>
+                  <span className="mii-label">Игры</span>
+                  <span className="mii-value">5000+</span>
                 </div>
-                <div className="info-card">
-                  <div className="info-card-icon">🌐</div>
-                  <div className="info-card-value">RU</div>
-                  <div className="info-card-label">Язык</div>
+                <div className="modal-info-item">
+                  <span className="mii-icon">🌐</span>
+                  <span className="mii-label">Язык</span>
+                  <span className="mii-value">RU</span>
                 </div>
-                <div className="info-card">
-                  <div className="info-card-icon">💳</div>
-                  <div className="info-card-value">{casino.payments}</div>
-                  <div className="info-card-label">Способы оплаты</div>
+                <div className="modal-info-item">
+                  <span className="mii-icon">⚡</span>
+                  <span className="mii-label">Вейджер</span>
+                  <span className="mii-value">{casino.wager}</span>
+                </div>
+                <div className="modal-info-item">
+                  <span className="mii-icon">🛡️</span>
+                  <span className="mii-label">Лицензия</span>
+                  <span className="mii-value">{casino.license !== "—" ? casino.license : "—"}</span>
                 </div>
               </div>
 
-              <h3 style={{ fontSize: 18, fontWeight: 700, marginBottom: 16 }}>Преимущества</h3>
-              <div style={{ display: "flex", flexDirection: "column", gap: 12, marginBottom: 24 }}>
+              <div className="modal-payments">
+                <div className="mp-label">Способы оплаты</div>
+                <div className="mp-chips">
+                  {casino.payments.split(", ").map((p) => (
+                    <span key={p} className="mp-chip">{paymentIcons[p] || "💳"} {p}</span>
+                  ))}
+                </div>
+              </div>
+
+              <h3 className="modal-section-title">Преимущества</h3>
+              <div className="modal-features">
                 {casino.features.map((f, i) => (
-                  <div key={i} style={{ display: "flex", alignItems: "center", gap: 12, color: "var(--text-secondary)" }}>
-                    <span style={{ color: "var(--accent)", fontSize: 18 }}>✓</span>
+                  <div key={i} className="mf-item">
+                    <span className="mf-check">✓</span>
                     <span>{f}</span>
                   </div>
                 ))}
               </div>
 
-              <h3 style={{ fontSize: 18, fontWeight: 700, marginBottom: 16 }}>О казино {casino.name}</h3>
-              <p style={{ color: "var(--text-secondary)", lineHeight: 1.7, fontSize: 14 }}>
-                {casino.description} Казино работает по лицензии {casino.license} и гарантирует честность игры и безопасность платежей.
-              </p>
-            </div>
-          )}
-
-          {tab === "bonuses" && (
-            <div className="tab-content active" id="tab-bonuses">
-              <div className="bonus-list">
-                {casino.bonuses.map((b, i) => (
-                  <div key={i} className="bonus-row">
-                    <div style={{ display: "flex", alignItems: "center" }}>
-                      <span className={`bonus-tag tag-${b.type}`}>{b.title}</span>
-                      <div className="bonus-info">
-                        <h4>{b.value}</h4>
-                        <p>{b.desc}</p>
-                        {b.wager && <span style={{ fontSize: 11, color: "var(--text-muted)", display: "block", marginTop: 4 }}>Вейджер: {b.wager}</span>}
-                      </div>
+              <h3 className="modal-section-title">Отзывы</h3>
+              <div className="modal-reviews">
+                {casino.reviews.map((r, i) => (
+                  <div key={i} className="review-card">
+                    <div className="review-top">
+                      <span className="review-name">{r.name}</span>
+                      <span className="review-stars">{"★".repeat(r.rating)}</span>
+                      <span className="review-date">{r.date}</span>
                     </div>
-                    <a href={casino.link} target="_blank" className="btn btn-primary" style={{ padding: "10px 20px", fontSize: 13 }}>
-                      Получить
-                    </a>
+                    <p className="review-text">"{r.text}"</p>
                   </div>
                 ))}
               </div>
@@ -108,28 +120,28 @@ export default function CasinoModal({ casino, onClose }: Props) {
           )}
 
           {tab === "bonuses" && (
-            <div className="tab-content active" id="tab-bonuses">
-              <div className="bonus-promo-banner" style={{ background: "rgba(0,255,136,0.05)", border: "1px solid rgba(0,255,136,0.2)", borderRadius: 12, padding: "12px 16px", marginBottom: 16, display: "flex", alignItems: "center", justifyContent: "space-between", gap: 12 }}>
+            <div className="tab-content">
+              <div className="bonus-promo-banner">
                 <div>
-                  <div style={{ fontSize: 11, color: "var(--text-muted)", textTransform: "uppercase", letterSpacing: 1 }}>Промокод</div>
-                  <div style={{ fontSize: 18, fontWeight: 900, color: "var(--accent)", letterSpacing: 1 }}>CAKATALOG</div>
+                  <div className="bpb-label">Промокод</div>
+                  <div className="bpb-code">CAKATALOG</div>
                 </div>
-                <button className="btn btn-primary" style={{ padding: "8px 16px", fontSize: 12 }} onClick={() => { navigator.clipboard.writeText("CAKATALOG"); }}>Копировать</button>
+                <button className="btn btn-primary" style={{ padding: "8px 16px", fontSize: 12 }}
+                  onClick={() => { navigator.clipboard.writeText("CAKATALOG"); }}>
+                  Копировать
+                </button>
               </div>
+
               <div className="bonus-list">
                 {casino.bonuses.map((b, i) => (
-                  <div key={i} className="bonus-row">
-                    <div style={{ display: "flex", alignItems: "center" }}>
-                      <span className={`bonus-tag tag-${b.type}`}>{b.title}</span>
-                      <div className="bonus-info">
-                        <h4>{b.value}</h4>
-                        <p>{b.desc}</p>
-                        {b.wager && <span style={{ fontSize: 11, color: "var(--text-muted)", display: "block", marginTop: 4 }}>Вейджер: {b.wager}</span>}
-                      </div>
+                  <div key={i} className="bonus-row-mod">
+                    <span className={`bonus-tag tag-${b.type}`}>{iconMap[b.type] || "🎯"} {b.title}</span>
+                    <div className="bonus-row-info">
+                      <div className="bri-value">{b.value}</div>
+                      <div className="bri-desc">{b.desc}</div>
+                      {b.wager && <div className="bri-wag">Вейджер: {b.wager}</div>}
                     </div>
-                    <a href={casino.link} target="_blank" className="btn btn-primary" style={{ padding: "10px 20px", fontSize: 13 }}>
-                      Получить
-                    </a>
+                    <a href={casino.link} target="_blank" className="btn btn-primary btn-sm">Получить</a>
                   </div>
                 ))}
               </div>
@@ -141,7 +153,7 @@ export default function CasinoModal({ casino, onClose }: Props) {
           <a href={casino.link} target="_blank" className="btn btn-primary btn-glow">
             🎁 Получить бонус в {casino.name}
           </a>
-          <button className="btn btn-outline" onClick={onClose}>Закрыть</button>
+          <button className="btn btn-outline" onClick={onClose}>✕ Закрыть</button>
         </div>
       </div>
     </div>
